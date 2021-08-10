@@ -1,31 +1,51 @@
 import React, {useState} from 'react';
 import {View, Text, Pressable} from 'react-native';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 const GuestsScreen = () => {
+  const navigation = useNavigation();
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
   return (
-    <View>
-      <Row
-        title="Adults"
-        description="Ages 13 or above"
-        value={adults}
-        setValue={setAdults}
-      />
-      <Row
-        title="Children"
-        description="Ages 2 to 12"
-        value={children}
-        setValue={setChildren}
-      />
-      <Row
-        title="Infants"
-        description="Ages under 2"
-        value={infants}
-        setValue={setInfants}
-      />
+    <View style={{justifyContent: 'space-between', height: '100%'}}>
+      <View>
+        <Row
+          title="Adults"
+          description="Ages 13 or above"
+          value={adults}
+          setValue={setAdults}
+        />
+        <Row
+          title="Children"
+          description="Ages 2 to 12"
+          value={children}
+          setValue={setChildren}
+        />
+        <Row
+          title="Infants"
+          description="Ages under 2"
+          value={infants}
+          setValue={setInfants}
+        />
+      </View>
+
+      <Pressable
+        onPress={() => navigation.navigate('SearchResultScreen')}
+        style={{
+          marginBottom: 32,
+          backgroundColor: '#f15454',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 50,
+          borderRadius: 8,
+          marginHorizontal: 20,
+        }}>
+        <Text style={{fontSize: 20, color: 'white', fontWeight: '600'}}>
+          Search
+        </Text>
+      </Pressable>
     </View>
   );
 };

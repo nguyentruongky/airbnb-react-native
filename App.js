@@ -6,6 +6,7 @@ import Post from './src/components/Post';
 
 import feed from './assets/data/feed';
 import SearchResultScreen from './src/screens/SearchResult';
+import DestinationSearchScreen from './src/screens/DestinationSearch';
 const post1 = feed[0];
 
 const App: () => Node = () => {
@@ -15,7 +16,7 @@ const App: () => Node = () => {
       <StatusBar />
       <SafeAreaView>
         {/* <HomeScreen /> */}
-        <SearchResultScreen />
+        <DestinationSearchScreen />
       </SafeAreaView>
     </>
   );

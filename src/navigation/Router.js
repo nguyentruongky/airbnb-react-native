@@ -12,6 +12,13 @@ const Router = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
+          name={'SearchResultScreen'}
+          component={SearchResultScreen}
+          options={{
+            title: 'Search your destination',
+          }}
+        />
+        <Stack.Screen
           name={'Home'}
           component={HomeTabNavigator}
           options={{
@@ -27,13 +34,6 @@ const Router = () => {
           }}
         />
 
-        <Stack.Screen
-          name={'SearchResultScreen'}
-          component={SearchResultScreen}
-          options={{
-            title: 'Search your destination',
-          }}
-        />
         <Stack.Screen
           name={'GuestsScreen'}
           component={GuestsScreen}

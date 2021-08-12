@@ -2,11 +2,10 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import DestinationSearchScreen from '../screens/DestinationSearch';
-import SearchResultScreen from '../screens/SearchResult';
 import GuestsScreen from '../screens/Guests';
 const Stack = createStackNavigator();
 import HomeTabNavigator from './HomeTabNavigator';
-import PostScreen from '../screens/PostScreen';
+import {PostScreen} from '../screens/PostScreen';
 
 const Router = () => {
   return (

@@ -1,9 +1,8 @@
 import React from 'react';
 import {View, Text, Image, useWindowDimensions, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import styles from './styles';
 
-const PostCarouselItem = props => {
+export const PostCarouselItem = props => {
   const navigation = useNavigation();
   const post = props.post;
 
@@ -16,7 +15,7 @@ const PostCarouselItem = props => {
       }
       style={{
         height: 120,
-        marginBottom: 140,
+        marginBottom: 100,
         padding: 5,
         width: useWindowDimensions().width - 60,
         shadowColor: '#000',
@@ -36,20 +35,20 @@ const PostCarouselItem = props => {
           overflow: 'hidden',
         }}>
         <Image
-          style={styles.image}
+          style={{height: '100%', aspectRatio: 1, resizeMode: 'cover'}}
           source={{
             uri: `${post?.image}`,
           }}
         />
         <View style={{flex: 1, marginHorizontal: 12}}>
-          <Text style={styles.bedrooms}>
+          <Text style={{marginVertical: 10, fontSize: 13, color: '#5b5b5b'}}>
             {post?.bedroom} bedroom {post?.bed} bed
           </Text>
-          <Text style={styles.description} numberOfLines={2}>
+          <Text style={{fontSize: 15}} numberOfLines={2}>
             {post?.type}. {post?.title}
           </Text>
 
-          <Text style={styles.prices}>
+          <Text style={{fontSize: 15, fontWeight: 'bold', marginVertical: 10}}>
             <Text> ${post?.newPrice}</Text> / night
           </Text>
         </View>
@@ -57,5 +56,3 @@ const PostCarouselItem = props => {
     </Pressable>
   );
 };
-
-export default PostCarouselItem;

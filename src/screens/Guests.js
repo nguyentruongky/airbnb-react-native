@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, Pressable} from 'react-native';
-import styles from './styles';
+import {StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const GuestsScreen = () => {
@@ -61,7 +61,15 @@ export default GuestsScreen;
 
 const Row = ({title, description, value, setValue}) => {
   return (
-    <View style={styles.row}>
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 20,
+        borderBottomWidth: 1,
+        borderColor: 'lightgrey',
+        marginHorizontal: 20,
+      }}>
       <View>
         <Text style={{fontWeight: 'bold', fontSize: 16}}>{title}</Text>
         <Text style={{color: '#8d8d8d'}}>{description}</Text>
@@ -92,3 +100,15 @@ const Row = ({title, description, value, setValue}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    borderWidth: 1,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderColor: '#676767',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

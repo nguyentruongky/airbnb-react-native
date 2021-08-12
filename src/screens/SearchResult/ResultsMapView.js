@@ -2,18 +2,17 @@ import React from 'react';
 import {View, Text, Dimensions, FlatList} from 'react-native';
 import feed from '../../../assets/data/feed';
 import MapView, {Marker} from 'react-native-maps';
-import PostCarouselItem from '../../components/PostCarouselItem';
+import {PostCarouselItem} from '../../components/PostCarouselItem';
 import {useState} from 'react';
 import {useEffect} from 'react';
 import {useRef} from 'react';
 
-const SearchResultScreen = () => {
+export const ResultsMapView = () => {
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
   const width = Dimensions.get('window').width;
   const flatList = useRef();
   const mapView = useRef();
   const viewConfig = useRef({itemVisiblePercentThreshold: 70});
-  let isScrolled = false;
   const onViewChanged = useRef(({viewableItems}) => {
     if (viewableItems.length > 0) {
       const selectedPlace = viewableItems[0].item;
@@ -64,7 +63,7 @@ const SearchResultScreen = () => {
           snapToInterval={width - 60}
           snapToAlignment="center"
           decelerationRate="fast"
-          renderItem={({item}) => <PostCarouselItem post={item} />}
+          renderItem={({item}) => <PostCarouselItem id={item.id} post={item} />}
           onViewableItemsChanged={onViewChanged.current}
           viewabilityConfig={viewConfig.current}
         />
@@ -72,8 +71,6 @@ const SearchResultScreen = () => {
     </View>
   );
 };
-
-export default SearchResultScreen;
 
 const CustomMarker = props => {
   const {coordinate, price, onPress, isSelected} = props;

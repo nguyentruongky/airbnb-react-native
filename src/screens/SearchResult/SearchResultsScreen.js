@@ -10,10 +10,10 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import ResultListView from './ResultListView';
-import ResultsMapView from './ResultsMapView';
+import {ResultListView} from './ResultListView';
+import {ResultsMapView} from './ResultsMapView';
 
-const SearchResultScreen = () => {
+export const SearchResultsScreen = () => {
   const [activeScreen, setActiveScreen] = useState('list');
   return (
     <View>
@@ -59,8 +59,6 @@ const SearchResultScreen = () => {
     </View>
   );
 };
-
-export default SearchResultScreen;
 
 const styles = StyleSheet.create({
   tabButton: {

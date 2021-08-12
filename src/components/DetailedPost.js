@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
 
-const DetailedPost = props => {
+export const DetailedPost = props => {
   const post = props.post;
 
   return (
@@ -54,5 +54,3 @@ const DetailedPost = props => {
     </ScrollView>
   );
 };
-
-export default DetailedPost;

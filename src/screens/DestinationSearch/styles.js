@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
+    marginHorizontal: 16,
     borderColor: 'lightgrey',
   },
   iconContainer: {

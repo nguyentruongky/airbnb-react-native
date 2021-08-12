@@ -6,7 +6,6 @@ import PostCarouselItem from '../../components/PostCarouselItem';
 import {useState} from 'react';
 import {useEffect} from 'react';
 import {useRef} from 'react';
-import {event} from 'react-native-reanimated';
 
 const SearchResultScreen = () => {
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
@@ -28,7 +27,10 @@ const SearchResultScreen = () => {
     }
     const index = feed.findIndex(place => place.id === selectedPlaceId);
     flatList.current.scrollToIndex({index});
-    mapView.current.animateToCoordinate(feed[index].coordinate);
+    const coordinate = feed[index].coordinate;
+    coordinate.latitudeDelta = 0.8;
+    coordinate.longitudeDelta = 0.8;
+    mapView.current.animateToRegion(coordinate);
   }, [selectedPlaceId]);
 
   return (

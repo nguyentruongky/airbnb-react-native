@@ -1,12 +1,19 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 const Post = props => {
   const post = props.post;
+  const navigator = useNavigation();
 
+  function showPostPage() {
+    navigator.navigate('PostScreen', {
+      id: post.id,
+    });
+  }
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={showPostPage}>
       <Image
         style={styles.image}
         source={{
@@ -27,7 +34,7 @@ const Post = props => {
       </Text>
 
       <Text style={styles.totalPrice}>${post.totalPrice} total</Text>
-    </View>
+    </Pressable>
   );
 };
 

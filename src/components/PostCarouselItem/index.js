@@ -1,12 +1,19 @@
 import React from 'react';
-import {View, Text, Image, useWindowDimensions} from 'react-native';
+import {View, Text, Image, useWindowDimensions, Pressable} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 
 const PostCarouselItem = props => {
+  const navigation = useNavigation();
   const post = props.post;
 
   return (
-    <View
+    <Pressable
+      onPress={() =>
+        navigation.navigate('PostScreen', {
+          id: post.id,
+        })
+      }
       style={{
         height: 120,
         marginBottom: 140,
@@ -47,7 +54,7 @@ const PostCarouselItem = props => {
           </Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

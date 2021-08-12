@@ -1,14 +1,40 @@
 import React from 'react';
-import {View, Text, Dimensions} from 'react-native';
+import {View, Text, Dimensions, FlatList} from 'react-native';
 import feed from '../../../assets/data/feed';
 import MapView, {Marker} from 'react-native-maps';
+import PostCarouselItem from '../../components/PostCarouselItem';
 import {useState} from 'react';
+import {useEffect} from 'react';
+import {useRef} from 'react';
+import {event} from 'react-native-reanimated';
 
 const SearchResultScreen = () => {
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
+  const width = Dimensions.get('window').width;
+  const flatList = useRef();
+  const mapView = useRef();
+  const viewConfig = useRef({itemVisiblePercentThreshold: 70});
+  let isScrolled = false;
+  const onViewChanged = useRef(({viewableItems}) => {
+    if (viewableItems.length > 0) {
+      const selectedPlace = viewableItems[0].item;
+      setSelectedPlaceId(selectedPlace.id);
+    }
+  });
+
+  useEffect(() => {
+    if (!selectedPlaceId || !flatList) {
+      return;
+    }
+    const index = feed.findIndex(place => place.id === selectedPlaceId);
+    flatList.current.scrollToIndex({index});
+    mapView.current.animateToCoordinate(feed[index].coordinate);
+  }, [selectedPlaceId]);
+
   return (
     <View style={{width: '100%', height: '100%'}}>
       <MapView
+        ref={mapView}
         style={{width: '100%', height: '100%'}}
         initialRegion={{
           latitude: 28.3915637,
@@ -26,6 +52,21 @@ const SearchResultScreen = () => {
           />
         ))}
       </MapView>
+
+      <View style={{position: 'absolute', bottom: 40}}>
+        <FlatList
+          data={feed}
+          ref={flatList}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={width - 60}
+          snapToAlignment="center"
+          decelerationRate="fast"
+          renderItem={({item}) => <PostCarouselItem post={item} />}
+          onViewableItemsChanged={onViewChanged.current}
+          viewabilityConfig={viewConfig.current}
+        />
+      </View>
     </View>
   );
 };

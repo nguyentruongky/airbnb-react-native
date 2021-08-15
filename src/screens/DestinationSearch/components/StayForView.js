@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {defaultFont} from '../../../common/Format';
 
 export const StayForView = ({stayFor, setStayFor}) => {
   return (
@@ -45,7 +46,7 @@ const StayForButton = ({currentSelected, title, select}) => {
 const styles = StyleSheet.create({
   title: {
     fontWeight: '500',
-    fontFamily: 'AirbnbCerealApp-Book',
+    fontFamily: defaultFont,
     color: '#666',
     fontSize: 20,
     marginTop: 24,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 48,
   },
   stayForButtonTitle: {
-    fontFamily: 'AirbnbCerealApp-Book',
+    fontFamily: defaultFont,
     color: '#232323',
     fontSize: 18,
     backgroundColor: 'white',

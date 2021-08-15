@@ -13,6 +13,7 @@ import {GradientBackground} from './components/GradientBackground';
 import {TitleBar} from './components/TitleBar';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
+import {defaultFont} from '../../common/Format';
 
 export const DestinationTypeScreen = () => {
   const navigation = useNavigation();
@@ -75,7 +76,7 @@ const Card = ({title, description, image}) => (
           fontSize: 22,
           fontWeight: '600',
           color: '#242424',
-          fontFamily: 'AirbnbCerealApp-Book',
+          fontFamily: defaultFont,
         }}>
         {title}
       </Text>
@@ -85,7 +86,7 @@ const Card = ({title, description, image}) => (
           color: '#888888',
           marginTop: 4,
           fontWeight: '400',
-          fontFamily: 'AirbnbCerealApp-Book',
+          fontFamily: defaultFont,
         }}>
         {description}
       </Text>

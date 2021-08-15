@@ -6,19 +6,22 @@ import GuestsScreen from '../screens/Guests';
 const Stack = createStackNavigator();
 import HomeTabNavigator from './HomeTabNavigator';
 import {PostScreen} from '../screens/PostScreen';
-import {ScheduleScreen} from '../screens/DestinationSearch/ScheduleScreen';
+import {WhoComingScreen} from '../screens/DestinationSearch/WhoComingScreen';
 
 const Router = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        {/* For testing only */}
         <Stack.Screen
-          name={'ScheduleScreen'}
-          component={ScheduleScreen}
+          name={'WhoComingScreen'}
+          component={WhoComingScreen}
           options={{
             headerShown: false,
           }}
         />
+        {/* For testing only */}
+
         <Stack.Screen
           name={'Home'}
           component={HomeTabNavigator}

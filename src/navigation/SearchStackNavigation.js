@@ -4,6 +4,7 @@ import {HomeScreen} from '../screens/HomeScreen';
 import {SearchLocationScreen} from '../screens/DestinationSearch/SearchLocationScreen';
 import {DestinationTypeScreen} from '../screens/DestinationSearch/DestinationTypeScreen';
 import {ScheduleScreen} from '../screens/DestinationSearch/ScheduleScreen';
+import {WhoComingScreen} from '../screens/DestinationSearch/WhoComingScreen';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,11 @@ export const SearchStackNavigation = () => {
       <Stack.Screen
         name={'ScheduleScreen'}
         component={ScheduleScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={'WhoComingScreen'}
+        component={WhoComingScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

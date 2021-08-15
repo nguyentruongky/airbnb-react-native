@@ -2,12 +2,12 @@ import React from 'react';
 import {useState} from 'react';
 import {View, Text, StyleSheet, Pressable, FlatList} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {getThisMonth, getNextMonths} from '../../../common/Date';
+import {defaultFont} from '../../../common/Format';
 
 export const GoInView = ({setMonth}) => {
   const months = getNextMonths();
-  let thisMonth = new Intl.DateTimeFormat('en', {month: 'long'}).format(
-    new Date(),
-  );
+  const thisMonth = getThisMonth('long');
 
   const [goIn, setGoIn] = useState(thisMonth);
   return (
@@ -33,35 +33,6 @@ export const GoInView = ({setMonth}) => {
   );
 };
 
-function getNextMonths() {
-  const today = new Date();
-  let thisMonth = new Intl.DateTimeFormat('en', {month: 'numeric'}).format(
-    today,
-  );
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  let nextMonths = [];
-  for (let i = thisMonth - 1; i < 12; i++) {
-    nextMonths.push(months[i]);
-  }
-  for (let i = 0; i < thisMonth - 1; i++) {
-    nextMonths.push(months[i]);
-  }
-  return nextMonths;
-}
-
 const GoInMonthButton = ({currentSelected, title, select}) => {
   return (
     <Pressable
@@ -83,7 +54,7 @@ const GoInMonthButton = ({currentSelected, title, select}) => {
 const styles = StyleSheet.create({
   title: {
     fontWeight: '500',
-    fontFamily: 'AirbnbCerealApp-Book',
+    fontFamily: defaultFont,
     color: '#666',
     fontSize: 20,
     marginTop: 40,
@@ -104,7 +75,7 @@ const styles = StyleSheet.create({
     borderColor: '#666',
   },
   stayForButtonTitle: {
-    fontFamily: 'AirbnbCerealApp-Book',
+    fontFamily: defaultFont,
     color: '#232323',
     fontSize: 18,
     backgroundColor: 'white',

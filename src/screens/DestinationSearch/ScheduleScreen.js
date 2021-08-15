@@ -15,6 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useState} from 'react';
 import {CalendarView} from './components/CalendarView';
 import {FlexibleView} from './components/FlexibleView';
+import {defaultFont} from '../../common/Format';
 
 export const ScheduleScreen = () => {
   const size = Dimensions.get('screen');
@@ -22,10 +23,6 @@ export const ScheduleScreen = () => {
 
   const navigation = useNavigation();
   const [type, setType] = useState('calendar');
-
-  function setSelectedRangeString(dateString) {
-    setDuration(dateString);
-  }
 
   return (
     <View style={styles.container}>
@@ -73,7 +70,7 @@ export const ScheduleScreen = () => {
                 color: '#666',
                 marginTop: 4,
                 marginRight: 16,
-                fontFamily: 'AirbnbCerealApp-Book',
+                fontFamily: defaultFont,
               }}>
               {duration}
             </Text>
@@ -81,14 +78,22 @@ export const ScheduleScreen = () => {
         </View>
       </View>
 
-      <TabContainer type={type} setType={setType} />
+      <TabContainer
+        type={type}
+        setType={type => {
+          if (type === 'flexible') {
+            setDuration(null);
+          }
+          setType(type);
+        }}
+      />
       <SafeAreaView
         style={{
           height: size.height - 470,
           backgroundColor: 'white',
         }}>
         {type === 'calendar' ? (
-          <CalendarView setSelectedRangeString={setSelectedRangeString} />
+          <CalendarView setSelectedRangeString={setDuration} />
         ) : (
           <FlexibleView />
         )}
@@ -98,45 +103,50 @@ export const ScheduleScreen = () => {
   );
 };
 
-const FooterView = () => (
-  <View
-    style={{
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: 16,
-      marginBottom: 16,
-    }}>
-    <Text
+const FooterView = () => {
+  const navigation = useNavigation();
+
+  return (
+    <View
       style={{
-        fontFamily: 'AirbnbCerealApp-Book',
-        fontWeight: '500',
-        color: '#232323',
-        fontSize: 18,
-        textDecorationColor: '#232323',
-        textDecorationLine: 'underline',
-      }}>
-      Clear
-    </Text>
-    <Pressable
-      style={{
-        backgroundColor: '#232323',
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 16,
+        marginBottom: 16,
       }}>
       <Text
         style={{
-          fontFamily: 'AirbnbCerealApp-Book',
+          fontFamily: defaultFont,
           fontWeight: '500',
-          color: 'white',
+          color: '#232323',
           fontSize: 18,
+          textDecorationColor: '#232323',
+          textDecorationLine: 'underline',
         }}>
-        Next
+        Clear
       </Text>
-    </Pressable>
-  </View>
-);
+      <Pressable
+        onPress={() => navigation.navigate('WhoComingScreen')}
+        style={{
+          backgroundColor: '#232323',
+          paddingVertical: 18,
+          paddingHorizontal: 24,
+          borderRadius: 10,
+        }}>
+        <Text
+          style={{
+            fontFamily: defaultFont,
+            fontWeight: '500',
+            color: 'white',
+            fontSize: 18,
+          }}>
+          Next
+        </Text>
+      </Pressable>
+    </View>
+  );
+};
 
 const myStyles = StyleSheet.create({
   tabContainer: {
@@ -149,7 +159,7 @@ const myStyles = StyleSheet.create({
   },
   tab: {borderRadius: 20, overflow: 'hidden'},
   switch: {
-    fontFamily: 'AirbnbCerealApp-Book',
+    fontFamily: defaultFont,
     fontSize: 18,
     fontWeight: '500',
     paddingHorizontal: 20,

@@ -2,6 +2,7 @@ import React from 'react';
 import {useState} from 'react';
 import {View, Pressable, Text, SafeAreaView, Dimensions} from 'react-native';
 import {Calendar} from 'react-native-calendario';
+import {getDay, getMonth} from '../../../common/Date';
 
 export const CalendarView = ({setSelectedRangeString}) => {
   const size = Dimensions.get('screen');
@@ -19,24 +20,19 @@ export const CalendarView = ({setSelectedRangeString}) => {
   function formatDate(range) {
     let dateString = '';
     const startDate = range.startDate;
-    let startDay = new Intl.DateTimeFormat('en', {day: '2-digit'}).format(
-      startDate,
-    );
+    const startDay = getDay(endDate);
     if (startDate) {
       dateString = startDay;
     }
     const endDate = range.endDate;
     if (endDate) {
-      let day = new Intl.DateTimeFormat('en', {day: '2-digit'}).format(endDate);
-      let mo = new Intl.DateTimeFormat('en', {month: 'short'}).format(endDate);
-
-      dateString += ' - ' + day + ' ' + mo;
+      const day = getDay(endDate);
+      const month = getMonth(endDate, 'short');
+      dateString += ' - ' + day + ' ' + month;
     }
 
     if (dateString == startDay) {
-      let mo = new Intl.DateTimeFormat('en', {month: 'short'}).format(
-        startDate,
-      );
+      const mo = getMonth(startDate, 'short');
       dateString += ' ' + mo;
     }
 

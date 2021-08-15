@@ -1,4 +1,5 @@
 import {Dimensions, StyleSheet} from 'react-native';
+import {defaultFont} from '../../common/Format';
 const size = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     fontSize: 44,
     fontWeight: '500',
     zIndex: 2,
-    fontFamily: 'AirbnbCerealApp-Book',
+    fontFamily: defaultFont,
   },
   floatPanel: {
     marginTop: 44,

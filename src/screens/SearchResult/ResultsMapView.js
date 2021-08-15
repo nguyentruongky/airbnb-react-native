@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Dimensions, FlatList} from 'react-native';
-import feed from '../../../assets/data/feed';
+import feed from '../../assets/data/feed';
 import MapView, {Marker} from 'react-native-maps';
 import {PostCarouselItem} from '../../components/PostCarouselItem';
 import {useState} from 'react';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Dimensions, FlatList} from 'react-native';
 import {Post} from '../../components/Post';
-import feed from '../../../assets/data/feed';
+import feed from '../../assets/data/feed';
 
 export const ResultListView = () => {
   return (

@@ -69,6 +69,12 @@
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
+		<string>AirbnbCerealApp-Black.ttf</string>
+		<string>AirbnbCerealApp-Bold.ttf</string>
+		<string>AirbnbCerealApp-Book.ttf</string>
+		<string>AirbnbCerealApp-ExtraBold.ttf</string>
+		<string>AirbnbCerealApp-Light.ttf</string>
+		<string>AirbnbCerealApp-Medium.ttf</string>
 	</array>
 </dict>
 </plist>

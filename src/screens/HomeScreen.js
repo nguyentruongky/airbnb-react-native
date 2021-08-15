@@ -27,7 +27,7 @@ export const HomeScreen = () => {
         }}>
         <Pressable
           style={styles.searchButton}
-          onPress={() => navigation.navigate('DestinationSearchScreen')}>
+          onPress={() => navigation.navigate('SearchStackNavigation')}>
           <Fontisto name="search" size={25} color="#f15454" />
           <Text style={styles.searchText}>Where are you going?</Text>
         </Pressable>

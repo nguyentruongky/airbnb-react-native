@@ -1,10 +1,11 @@
 import {Dimensions, StyleSheet} from 'react-native';
+const size = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    flex: 1,
+    justifyContent: 'flex-end',
     height: '100%',
-    backgroundColor: 'white',
   },
   textInput: {
     fontSize: 16,
@@ -26,6 +27,40 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontWeight: '500',
+  },
+  titleText: {
+    color: 'white',
+    marginHorizontal: 24,
+    fontSize: 44,
+    fontWeight: '500',
+    zIndex: 2,
+    fontFamily: 'AirbnbCerealApp-Book',
+  },
+  floatPanel: {
+    marginTop: 44,
+    height: 100,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 2,
+  },
+  locationName: {
+    flex: 1,
+    textAlign: 'center',
+    marginRight: 16,
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  gradientContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: size.height / 1.4,
+    width: size.width,
+    zIndex: 1,
   },
 });
 

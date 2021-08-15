@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {DetailedPost} from '../components/DetailedPost';
-import places from '../../assets/data/feed';
+import places from '../assets/data/feed';
 
 export const PostScreen = props => {
   const {route} = props;

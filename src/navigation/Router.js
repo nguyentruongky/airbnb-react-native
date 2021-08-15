@@ -1,16 +1,24 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import DestinationSearchScreen from '../screens/DestinationSearch';
+import {SearchStackNavigation} from '../navigation/SearchStackNavigation';
 import GuestsScreen from '../screens/Guests';
 const Stack = createStackNavigator();
 import HomeTabNavigator from './HomeTabNavigator';
 import {PostScreen} from '../screens/PostScreen';
+import {ScheduleScreen} from '../screens/DestinationSearch/ScheduleScreen';
 
 const Router = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name={'ScheduleScreen'}
+          component={ScheduleScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name={'Home'}
           component={HomeTabNavigator}
@@ -27,10 +35,10 @@ const Router = () => {
         />
 
         <Stack.Screen
-          name={'DestinationSearchScreen'}
-          component={DestinationSearchScreen}
+          name={'SearchStackNavigation'}
+          component={SearchStackNavigation}
           options={{
-            title: 'Search your destination',
+            headerShown: false,
           }}
         />
 

@@ -18,8 +18,10 @@
     "@react-navigation/stack": "^6.0.4",
     "react": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-calendario": "^2.1.6",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-google-places-autocomplete": "^2.4.0",
+    "react-native-linear-gradient": "^2.5.6",
     "react-native-maps": "https://github.com/react-community/react-native-maps.git",
     "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "^3.3.0",
@@ -36,6 +38,11 @@
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.64.0",
     "react-test-renderer": "17.0.1"
+  },
+  "rnpm": {
+    "assets": [
+      "./src/assets/fonts/"
+    ]
   },
   "jest": {
     "preset": "react-native"

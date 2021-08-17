@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {View, Text, StyleSheet, Pressable, FlatList} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {getThisMonth, getNextMonths} from '../../../common/Date';
-import {defaultFont} from '../../../common/Format';
+import {black, defaultFont} from '../../../common/Format';
 
 export const GoInView = ({setMonth}) => {
   const months = getNextMonths();
@@ -13,7 +13,8 @@ export const GoInView = ({setMonth}) => {
   return (
     <View>
       <Text style={styles.title}>
-        Go in <Text style={{color: '#232323'}}>{goIn}</Text>
+        Go in{' '}
+        <Text style={{color: black, fontFamily: defaultFont}}>{goIn}</Text>
       </Text>
       <FlatList
         style={{marginTop: 24}}
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   selectedButton: {
-    borderColor: '#232323',
+    borderColor: black,
     backgroundColor: '#fafafa',
     borderWidth: 2,
   },
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   },
   stayForButtonTitle: {
     fontFamily: defaultFont,
-    color: '#232323',
+    color: black,
     fontSize: 18,
     backgroundColor: 'white',
     marginTop: 16,

@@ -1,32 +1,50 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Dimensions,
-  Pressable,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import {View, Text, Dimensions, Pressable, StyleSheet} from 'react-native';
 import {GradientBackground} from './components/GradientBackground';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useState} from 'react';
-import {defaultFont} from '../../common/Format';
+import {black, brandColor, defaultFont} from '../../common/Format';
 import {useEffect} from 'react';
 
-export const WhoComingScreen = () => {
+export const WhoComingScreen = props => {
+  const {route} = props;
+  const searchData = route.params.searchData;
+  console.log(searchData);
+  const [tripType, setTripType] = useState(null);
+  const [destination, setDestination] = useState(null);
+  useEffect(() => {
+    if (searchData.exactDay) {
+      setTripType(searchData.exactDay);
+    } else {
+      setTripType('Flexible dates');
+    }
+
+    setDestination(searchData.location.description);
+  }, []);
   const size = Dimensions.get('screen');
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
   const [canSearch, setCanSearch] = useState(false);
+  const [guestCountString, setGuestCountString] = useState(null);
 
   useEffect(() => {
     setCanSearch(adults > 0);
   }, [adults]);
+
+  useEffect(() => {
+    const total = adults + children + infants;
+    if (total === 0) {
+      setGuestCountString(null);
+    } else if (total === 1) {
+      setGuestCountString('1 guest');
+    } else {
+      setGuestCountString(total + ' guests');
+    }
+  }, [adults, children, infants]);
 
   const navigation = useNavigation();
 
@@ -36,51 +54,11 @@ export const WhoComingScreen = () => {
         <GradientBackground />
       </View>
       <Text style={styles.titleText}>Who's coming?</Text>
-      <View
-        style={{
-          marginTop: 44,
-          height: 100,
-          backgroundColor: 'white',
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24,
-          paddingHorizontal: 24,
-          flexDirection: 'row',
-          alignItems: 'center',
-          zIndex: 2,
-        }}>
-        <MaterialIcons
-          onPress={() => navigation.goBack()}
-          name="arrow-back-ios"
-          color="#494949"
-          size={20}
-        />
-        <View
-          style={{
-            flexDirection: 'column',
-            flex: 1,
-          }}>
-          <Text
-            style={{
-              textAlign: 'center',
-              marginRight: 16,
-              fontSize: 18,
-              fontWeight: '600',
-            }}>
-            Paris
-          </Text>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: 16,
-              color: '#666',
-              marginTop: 4,
-              marginRight: 16,
-              fontFamily: defaultFont,
-            }}>
-            Flexible dates
-          </Text>
-        </View>
-      </View>
+      <NavigationBar
+        destination={destination}
+        tripType={tripType}
+        guestCountString={guestCountString}
+      />
 
       <View
         style={{
@@ -115,6 +93,59 @@ export const WhoComingScreen = () => {
   );
 };
 
+const NavigationBar = ({destination, tripType, guestCountString}) => {
+  const navigation = useNavigation();
+  return (
+    <View
+      style={{
+        marginTop: 44,
+        height: 100,
+        backgroundColor: 'white',
+        borderTopLeftRadius: 24,
+        borderTopRightRadius: 24,
+        paddingHorizontal: 24,
+        flexDirection: 'row',
+        alignItems: 'center',
+        zIndex: 2,
+      }}>
+      <MaterialIcons
+        onPress={() => navigation.goBack()}
+        name="arrow-back-ios"
+        color="#494949"
+        size={20}
+      />
+      <View
+        style={{
+          flexDirection: 'column',
+          flex: 1,
+        }}>
+        <Text
+          style={{
+            textAlign: 'center',
+            marginRight: 16,
+            fontSize: 18,
+            fontWeight: '600',
+            fontFamily: defaultFont,
+          }}>
+          {destination}
+        </Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 16,
+            color: '#666',
+            marginTop: 4,
+            marginRight: 16,
+            fontFamily: defaultFont,
+          }}>
+          {tripType}
+          {guestCountString && <Text> - {guestCountString}</Text>}
+        </Text>
+      </View>
+    </View>
+  );
+};
+
 const FooterView = ({canSearch}) => (
   <View
     style={{
@@ -131,9 +162,9 @@ const FooterView = ({canSearch}) => (
       style={{
         fontFamily: defaultFont,
         fontWeight: '500',
-        color: '#232323',
+        color: black,
         fontSize: 18,
-        textDecorationColor: '#232323',
+        textDecorationColor: black,
         textDecorationLine: 'underline',
       }}>
       Skip
@@ -141,7 +172,7 @@ const FooterView = ({canSearch}) => (
     <Pressable
       disabled={!canSearch}
       style={{
-        backgroundColor: canSearch ? '#232323' : '#e0e0e0',
+        backgroundColor: canSearch ? brandColor : '#e0e0e0',
         paddingVertical: 18,
         flexDirection: 'row',
         paddingHorizontal: 24,

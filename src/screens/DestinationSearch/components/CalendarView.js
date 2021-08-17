@@ -1,8 +1,10 @@
 import React from 'react';
+import {useEffect} from 'react';
 import {useState} from 'react';
 import {View, Pressable, Text, SafeAreaView, Dimensions} from 'react-native';
 import {Calendar} from 'react-native-calendario';
 import {getDay, getMonth} from '../../../common/Date';
+import {black, defaultFont} from '../../../common/Format';
 
 export const CalendarView = ({setSelectedRangeString}) => {
   const size = Dimensions.get('screen');
@@ -10,6 +12,7 @@ export const CalendarView = ({setSelectedRangeString}) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [durationString, setDurationString] = useState('');
+
   function updateDayDiff(diff) {
     setDayDiff(diff);
     if (durationString.length !== 0) {
@@ -17,6 +20,7 @@ export const CalendarView = ({setSelectedRangeString}) => {
       setSelectedRangeString(newString);
     }
   }
+
   function formatDate(range) {
     let dateString = '';
     const startDate = range.startDate;
@@ -75,10 +79,10 @@ export const CalendarView = ({setSelectedRangeString}) => {
           nonTouchableDayContainerStyle: {},
           nonTouchableDayTextStyle: {},
           startDateContainerStyle: {
-            backgroundColor: '#232323',
+            backgroundColor: black,
           },
           endDateContainerStyle: {
-            backgroundColor: '#232323',
+            backgroundColor: black,
           },
           dayContainerStyle: {
             backgroundColor: 'white',
@@ -99,7 +103,7 @@ export const CalendarView = ({setSelectedRangeString}) => {
           todayContainerStyle: {},
           todayTextStyle: {},
           activeDayContainerStyle: {
-            backgroundColor: '#232323',
+            backgroundColor: black,
           },
           activeDayTextStyle: {
             fontWeight: '700',
@@ -150,9 +154,9 @@ const DayDiff = ({title, selectedDayDiff, setDayDiff}) => (
       paddingHorizontal: 12,
       borderRadius: 16,
       borderWidth: 1,
-      borderColor: selectedDayDiff === title ? '#232323' : 'lightgray',
+      borderColor: selectedDayDiff === title ? black : 'lightgray',
       marginRight: 16,
     }}>
-    <Text style={{fontWeight: '500'}}>+/-{title}</Text>
+    <Text style={{fontWeight: '500', fontFamily: defaultFont}}>+/-{title}</Text>
   </Pressable>
 );

@@ -10,13 +10,16 @@ import {
 import placeIcon from '../../assets/images/search-type-place.png';
 import experienceIcon from '../../assets/images/search-type-experience.png';
 import {GradientBackground} from './components/GradientBackground';
-import {TitleBar} from './components/TitleBar';
 import {useNavigation} from '@react-navigation/native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 import styles from './styles';
 import {defaultFont} from '../../common/Format';
 
-export const DestinationTypeScreen = () => {
+export const WhatLookingScreen = props => {
   const navigation = useNavigation();
+  const {route} = props;
+  const searchData = route.params.searchData;
 
   const size = Dimensions.get('screen');
   return (
@@ -26,16 +29,26 @@ export const DestinationTypeScreen = () => {
       </View>
 
       <Text style={styles.titleText}>What are you looking for?</Text>
-      <TitleBar />
+      <NavigationBar location={searchData.location.description} />
       <SafeAreaView style={{backgroundColor: 'white', zIndex: 2}}>
-        <Pressable onPress={() => navigation.navigate('ScheduleScreen')}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate('WhenScreen', {
+              searchData: {...searchData, lookingFor: 'place'},
+            })
+          }>
           <Card
             title="Find a place to stay"
             description="Entire homes, rooms & more"
             image={placeIcon}
           />
         </Pressable>
-        <Pressable onPress={() => navigation.navigate('ScheduleScreen')}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate('WhenScreen', {
+              searchData: {...searchData, lookingFor: 'experience'},
+            })
+          }>
           <Card
             title="Find an experience"
             description="Activities hosted by locals"
@@ -97,3 +110,17 @@ const Card = ({title, description, image}) => (
     />
   </View>
 );
+export const NavigationBar = ({location}) => {
+  const navigation = useNavigation();
+  return (
+    <View style={styles.floatPanel}>
+      <MaterialIcons
+        onPress={() => navigation.goBack()}
+        name="arrow-back-ios"
+        color="#494949"
+        size={20}
+      />
+      <Text style={styles.locationName}>{location}</Text>
+    </View>
+  );
+};

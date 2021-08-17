@@ -11,6 +11,7 @@ import {
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import {useNavigation} from '@react-navigation/native';
 import {Dimensions, StyleSheet} from 'react-native';
+import {black} from '../common/Format';
 
 const background = require('../../assets/images/wallpaper.jpg');
 export const HomeScreen = () => {
@@ -138,7 +139,7 @@ const OnlineExperienceItem = props => {
         source={{uri: data.image}}>
         <View
           style={{
-            backgroundColor: '#232323',
+            backgroundColor: black,
             height: 80,
             justifyContent: 'center',
             paddingHorizontal: 16,

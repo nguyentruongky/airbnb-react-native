@@ -2,8 +2,8 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {HomeScreen} from '../screens/HomeScreen';
 import {SearchLocationScreen} from '../screens/DestinationSearch/SearchLocationScreen';
-import {DestinationTypeScreen} from '../screens/DestinationSearch/DestinationTypeScreen';
-import {ScheduleScreen} from '../screens/DestinationSearch/ScheduleScreen';
+import {WhatLookingScreen} from '../screens/DestinationSearch/WhatLookingScreen';
+import {WhenScreen} from '../screens/DestinationSearch/WhenScreen';
 import {WhoComingScreen} from '../screens/DestinationSearch/WhoComingScreen';
 
 const Stack = createStackNavigator();
@@ -19,13 +19,13 @@ export const SearchStackNavigation = () => {
         }}
       />
       <Stack.Screen
-        name={'DestinationTypeScreen'}
-        component={DestinationTypeScreen}
+        name={'WhatLookingScreen'}
+        component={WhatLookingScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name={'ScheduleScreen'}
-        component={ScheduleScreen}
+        name={'WhenScreen'}
+        component={WhenScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen

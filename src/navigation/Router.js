@@ -12,16 +12,6 @@ const Router = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* For testing only */}
-        <Stack.Screen
-          name={'WhoComingScreen'}
-          component={WhoComingScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        {/* For testing only */}
-
         <Stack.Screen
           name={'Home'}
           component={HomeTabNavigator}

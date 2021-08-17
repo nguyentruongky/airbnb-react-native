@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
-import {defaultFont} from '../../../common/Format';
+import {black, defaultFont} from '../../../common/Format';
 
 export const StayForView = ({stayFor, setStayFor}) => {
   return (
     <View>
       <Text style={styles.title}>
-        Stay for a <Text style={{color: '#232323'}}>{stayFor}</Text>
+        Stay for a <Text style={{color: black}}>{stayFor}</Text>
       </Text>
       <View style={{flexDirection: 'row', marginTop: 24}}>
         <StayForButton
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   selectedStayForButton: {
-    borderColor: '#232323',
+    borderColor: black,
     backgroundColor: '#fafafa',
     borderWidth: 2,
   },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   stayForButtonTitle: {
     fontFamily: defaultFont,
-    color: '#232323',
+    color: black,
     fontSize: 18,
     backgroundColor: 'white',
   },

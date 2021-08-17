@@ -10,7 +10,13 @@ const SuggestionRow = ({item}) => {
   return (
     <Pressable
       style={styles.row}
-      onPress={() => navigation.navigate('DestinationTypeScreen')}>
+      onPress={() =>
+        navigation.navigate('WhatLookingScreen', {
+          searchData: {
+            location: item,
+          },
+        })
+      }>
       <View style={styles.iconContainer}>
         <Entypo name="location-pin" size={30} />
       </View>

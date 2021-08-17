@@ -5,14 +5,28 @@ import {StayForView} from './StayForView';
 import {GoInView} from './GoInView';
 import {getThisMonth} from '../../../common/Date';
 
-export const FlexibleView = () => {
+export const FlexibleView = ({setFlexibleOption}) => {
   const [stayFor, setStayFor] = useState('weekend');
   const thisMonth = getThisMonth('long');
   const [goIn, setGoIn] = useState(thisMonth);
+  function updateStayFor(duration) {
+    setStayFor(duration);
+    sendDataBack();
+  }
+  function updateGoIn(month) {
+    setGoIn(month);
+    sendDataBack();
+  }
+  function sendDataBack() {
+    setFlexibleOption({
+      stayFor,
+      goInMonth: goIn,
+    });
+  }
   return (
     <View style={{marginHorizontal: 24}}>
-      <StayForView stayFor={stayFor} setStayFor={setStayFor} />
-      <GoInView goIn={goIn} setGoIn={setGoIn} />
+      <StayForView stayFor={stayFor} setStayFor={updateStayFor} />
+      <GoInView goIn={goIn} setGoIn={updateGoIn} />
     </View>
   );
 };

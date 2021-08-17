@@ -6,7 +6,6 @@ import {
   Dimensions,
   Pressable,
   StyleSheet,
-  ScrollView,
 } from 'react-native';
 import {GradientBackground} from './components/GradientBackground';
 import {useNavigation} from '@react-navigation/native';
@@ -15,14 +14,34 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useState} from 'react';
 import {CalendarView} from './components/CalendarView';
 import {FlexibleView} from './components/FlexibleView';
-import {defaultFont} from '../../common/Format';
+import {black, defaultFont} from '../../common/Format';
+import {useEffect} from 'react';
 
-export const ScheduleScreen = () => {
-  const size = Dimensions.get('screen');
-  const [duration, setDuration] = useState(null);
-
+export const WhenScreen = props => {
   const navigation = useNavigation();
+  const {route} = props;
+  const searchData = route.params.searchData;
+
+  const size = Dimensions.get('screen');
+  const [exactDay, setExactDay] = useState(null);
+  const [flexibleOption, setFlexibleOption] = useState(null);
+
   const [type, setType] = useState('calendar');
+  const [canNext, setCanNext] = useState(false);
+
+  function toNextScreen() {
+    navigation.navigate('WhoComingScreen', {
+      searchData: {...searchData, exactDay, flexibleOption},
+    });
+  }
+
+  useEffect(() => {
+    setCanNext(exactDay !== null || flexibleOption !== null);
+  }, [exactDay, flexibleOption]);
+
+  function clearExactDay() {
+    setExactDay(null);
+  }
 
   return (
     <View style={styles.container}>
@@ -30,59 +49,16 @@ export const ScheduleScreen = () => {
         <GradientBackground />
       </View>
       <Text style={styles.titleText}>When will you be there?</Text>
-      <View
-        style={{
-          marginTop: 44,
-          height: 100,
-          backgroundColor: 'white',
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24,
-          paddingHorizontal: 24,
-          flexDirection: 'row',
-          alignItems: 'center',
-          zIndex: 2,
-        }}>
-        <MaterialIcons
-          onPress={() => navigation.goBack()}
-          name="arrow-back-ios"
-          color="#494949"
-          size={20}
-        />
-        <View
-          style={{
-            flexDirection: 'column',
-            flex: 1,
-          }}>
-          <Text
-            style={{
-              textAlign: 'center',
-              marginRight: 16,
-              fontSize: 18,
-              fontWeight: '600',
-            }}>
-            Paris
-          </Text>
-          {duration && (
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 16,
-                color: '#666',
-                marginTop: 4,
-                marginRight: 16,
-                fontFamily: defaultFont,
-              }}>
-              {duration}
-            </Text>
-          )}
-        </View>
-      </View>
+      <NavigationBar
+        duration={exactDay}
+        location={searchData.location.description}
+      />
 
       <TabContainer
         type={type}
         setType={type => {
           if (type === 'flexible') {
-            setDuration(null);
+            setExactDay(null);
           }
           setType(type);
         }}
@@ -93,19 +69,75 @@ export const ScheduleScreen = () => {
           backgroundColor: 'white',
         }}>
         {type === 'calendar' ? (
-          <CalendarView setSelectedRangeString={setDuration} />
+          <CalendarView setSelectedRangeString={setExactDay} />
         ) : (
-          <FlexibleView />
+          <FlexibleView setFlexibleOption={setFlexibleOption} />
         )}
       </SafeAreaView>
-      <FooterView />
+      <FooterView
+        clearDuration={clearExactDay}
+        canNext={canNext}
+        toNextScreen={toNextScreen}
+      />
     </View>
   );
 };
 
-const FooterView = () => {
+const NavigationBar = ({location, duration}) => {
   const navigation = useNavigation();
 
+  return (
+    <View
+      style={{
+        marginTop: 44,
+        height: 100,
+        backgroundColor: 'white',
+        borderTopLeftRadius: 24,
+        borderTopRightRadius: 24,
+        paddingHorizontal: 24,
+        flexDirection: 'row',
+        alignItems: 'center',
+        zIndex: 2,
+      }}>
+      <MaterialIcons
+        onPress={() => navigation.goBack()}
+        name="arrow-back-ios"
+        color="#494949"
+        size={20}
+      />
+      <View
+        style={{
+          flexDirection: 'column',
+          flex: 1,
+        }}>
+        <Text
+          style={{
+            textAlign: 'center',
+            marginRight: 16,
+            fontSize: 18,
+            fontWeight: '600',
+          }}>
+          {location}
+        </Text>
+        {duration && (
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 16,
+              color: '#666',
+              marginTop: 4,
+              marginRight: 16,
+              fontFamily: defaultFont,
+            }}>
+            {duration}
+          </Text>
+        )}
+      </View>
+    </View>
+  );
+};
+
+const FooterView = ({clearDuration, canNext, toNextScreen}) => {
   return (
     <View
       style={{
@@ -116,20 +148,22 @@ const FooterView = () => {
         marginBottom: 16,
       }}>
       <Text
+        onPress={() => clearDuration()}
         style={{
           fontFamily: defaultFont,
           fontWeight: '500',
-          color: '#232323',
+          color: black,
           fontSize: 18,
-          textDecorationColor: '#232323',
+          textDecorationColor: black,
           textDecorationLine: 'underline',
         }}>
         Clear
       </Text>
       <Pressable
-        onPress={() => navigation.navigate('WhoComingScreen')}
+        onPress={toNextScreen}
         style={{
-          backgroundColor: '#232323',
+          opacity: canNext ? 1 : 0.1,
+          backgroundColor: black,
           paddingVertical: 18,
           paddingHorizontal: 24,
           borderRadius: 10,
